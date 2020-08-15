@@ -7,7 +7,7 @@ public class Task {
     private int a;
     private int b;
     private char operation;
-    private Map<String, Integer> numMap;
+    private Map<String, Integer> numMap = new HashMap<>();
     private boolean isArabic;
     private int mid;
 
@@ -35,7 +35,7 @@ public class Task {
 
     }
 
-    public void setNumMap() {
+    private void setNumMap() {
         numMap.put("I", 1);
         numMap.put("II", 2);
         numMap.put("III", 3);
@@ -48,35 +48,72 @@ public class Task {
         numMap.put("X", 10);
     }
 
-    public void setA(String task) {
+    private void setA(String task) {
         String value = task.substring(0, mid);
-        if (numMap.containsKey(value)) this.a = numMap.get(value);
-        else if(numMap.containsValue(Integer.getInteger(value))){
-            this.a = Integer.getInteger(value);
-        }
-        else {
-            System.out.print("Error! A is not found!"); System.exit(0);
+        try{
+            if (numMap.containsKey(value)) {this.a = numMap.get(value); isArabic = false;}
+            else if(numMap.containsValue(Integer.parseInt(value))){
+                this.a = Integer.parseInt(value);
+                isArabic = true;
+            }
+            else {
+                System.out.print("Error! A is not found or out of range!"); System.exit(0);
+            }
+        }catch (Exception ex){
+            ex.getStackTrace();
+            System.out.print("Error! A is not found or out of range! "); System.exit(0);
         }
     }
 
-    public void setB(String task) {
+    private void setB(String task) {
         String value = task.substring(mid+1, task.length());
-        if (numMap.containsKey(value)) this.b = numMap.get(value);
+        if (numMap.containsKey(value) && !isArabic) this.b = numMap.get(value);
+        else if(numMap.containsValue(Integer.parseInt(value)) && isArabic){
+            this.b = Integer.parseInt(value);
+        }
         else {
-            System.out.print("Error! B is not found!"); System.exit(0);
+            System.out.print("Error! B is not found or out of range!"); System.exit(0);
         }
     }
 
-    public void setOperation(String task) {
-        if (task.contains("+")){
-            this.operation(task, '+');
-        }else if (task.contains("-")) this.operation(task, '+');
+    private void setOperation(String task) {
+        if (task.contains("+")) this.operation(task, '+');
+        else if (task.contains("-")) this.operation(task, '-');
         else if (task.contains("*")) this.operation(task, '*');
-        else if (task.contains("-")) this.operation(task, '+');
+        else if (task.contains("/")) this.operation(task, '/');
         else {System.out.print("Error! Operator is not found!"); System.exit(0);}
+
     }
     private void operation(String task, char oper){
         this.operation = oper;
         mid = task.indexOf(oper);
+    }
+
+    public String doOperation(){
+        int result = 0;
+        switch (operation){
+            case '-':
+                result = Arithmetic.sub(a, b);
+                break;
+            case '+':
+                result = Arithmetic.add(a, b);
+                break;
+            case '*':
+                result = Arithmetic.multiply(a, b);
+                break;
+            case '/':
+                result = Arithmetic.divide(a, b);
+                System.out.println(result);
+                break;
+            default:
+                System.out.println("Operation isn't recognized");
+                System.exit(1);
+                break;
+        }
+        String stringResult = Integer.toString(result);
+        if(!isArabic){
+            stringResult = RomanNumerals.ConvertToRoman((int)result);
+        }
+        return stringResult;
     }
 }

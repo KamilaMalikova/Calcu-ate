@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class Main {
 
 //    Калькулятор умеет выполнять операции сложения, вычитания, умножения и деления с двумя числами: a + b, a - b, a * b, a / b.
@@ -19,6 +21,17 @@ public class Main {
 //
 
     public static void main(String[] args) {
-	// write your code here
+	    System.out.println("Type operation: ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        operation(input);
+    }
+
+    public static String operation(String input){
+        input = input.replaceAll("\\s", "");
+        Task task = new Task(input);
+        String result = task.doOperation();
+        System.out.println(result);
+        return result;
     }
 }
