@@ -57,22 +57,27 @@ public class Task {
                 isArabic = true;
             }
             else {
-                System.out.print("Error! A is not found or out of range!"); System.exit(0);
+                System.out.print("Error! A is not compatible or out of range!"); System.exit(0);
             }
         }catch (Exception ex){
             ex.getStackTrace();
-            System.out.print("Error! A is not found or out of range! "); System.exit(0);
+            System.out.print("Error! A is not compatible or out of range! "); System.exit(0);
         }
     }
 
     private void setB(String task) {
         String value = task.substring(mid+1, task.length());
-        if (numMap.containsKey(value) && !isArabic) this.b = numMap.get(value);
-        else if(numMap.containsValue(Integer.parseInt(value)) && isArabic){
-            this.b = Integer.parseInt(value);
-        }
-        else {
-            System.out.print("Error! B is not found or out of range!"); System.exit(0);
+        try{
+            if (numMap.containsKey(value) && !isArabic) this.b = numMap.get(value);
+            else if(isArabic && numMap.containsValue(Integer.parseInt(value)) ){
+                this.b = Integer.parseInt(value);
+            }
+            else {
+                System.out.print("Error! B is not compatible or out of range!"); System.exit(0);
+            }
+        }catch (Exception ex){
+            ex.getStackTrace();
+            System.out.print("Error! B is not compatible or out of range! "); System.exit(0);
         }
     }
 
