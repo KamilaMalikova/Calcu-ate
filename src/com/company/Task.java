@@ -117,7 +117,9 @@ public class Task {
         }
         String stringResult = Integer.toString(result);
         if(!isArabic){
-            stringResult = RomanNumerals.ConvertToRoman((int)result);
+            if(result < 0){
+                stringResult = "-"+RomanNumerals.ConvertToRoman(Math.abs(result));
+            }else stringResult = RomanNumerals.ConvertToRoman(result);
         }
         return stringResult;
     }

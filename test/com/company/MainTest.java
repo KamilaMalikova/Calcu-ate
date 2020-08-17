@@ -32,5 +32,13 @@ class MainTest {
     void operationTest5() {
         assertEquals("X", Main.operation("V+V"));
     }
+    @Test
+    void operationTest6() {
+        assertEquals("-1", Main.operation("9-10"));
+    }
+    @Test
+    void operationTest7() {
+        assertEquals("-IX", Main.operation("I-X"));
+    }
 
 }
