@@ -2,7 +2,7 @@ package com.company;
 
 public class RomanNumerals {
     public static String ConvertToRoman(int number){
-        if (number <= 10.0){
+        if (number <= 10){
             return Units.values()[number].name();
         }
         else if (number == 100){

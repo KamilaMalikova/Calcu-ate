@@ -28,4 +28,9 @@ class MainTest {
     void operationTest4() {
         assertEquals("N", Main.operation("V - V"));
     }
+    @Test
+    void operationTest5() {
+        assertEquals("X", Main.operation("V+V"));
+    }
+
 }
